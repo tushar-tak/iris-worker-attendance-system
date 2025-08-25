@@ -1,46 +1,52 @@
-# Getting Started with Create React App
+# IRIS Recognition System
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern MNREGA Worker Management Portal built with Vite + React + TypeScript, styled with Tailwind CSS and shadcn-ui.
 
-## Available Scripts
+## About
 
-In the project directory, you can run:
+IRIS (Intelligent Recognition & Information System) is a comprehensive attendance and worker management system designed for MNREGA projects. It provides real-time tracking, reporting, and management capabilities for government work programs.
 
-### `npm start`
+## Development
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```sh
+npm i
+npm run dev
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Build
 
-### `npm test`
+```sh
+npm run build
+npm run preview
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Tech stack
 
-### `npm run build`
+- Vite
+- React 18
+- TypeScript
+- Tailwind CSS
+- shadcn-ui
+- Radix UI
+- TanStack Query
+- React Router DOM
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Deployment
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Vercel (Recommended)
+1. Connect your GitHub repository to Vercel
+2. Vercel will automatically detect it's a Vite project
+3. Build command: `npm run build`
+4. Output directory: `dist`
+5. Deploy!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Netlify
+1. Build: `npm run build`
+2. Upload the `dist` folder to Netlify
+3. Set build command: `npm run build`
+4. Set publish directory: `dist`
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Login Credentials
+- **Username:** `admin`
+- **Password:** `password`
+- **Role:** MNREGA Supervisor
