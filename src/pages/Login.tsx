@@ -1,6 +1,4 @@
 import { useState } from 'react';
-import { Navigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
@@ -12,35 +10,35 @@ const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const { login, isAuthenticated } = useAuth();
   const { toast } = useToast();
-
-  if (isAuthenticated) {
-    return <Navigate to="/" replace />;
-  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
     try {
-      const success = await login(username, password);
-      if (success) {
-        toast({
-          title: "Login Successful",
-          description: "Welcome to IRIS Recognition System",
-        });
-      } else {
-        toast({
-          title: "Login Failed",
-          description: "Invalid username or password",
-          variant: "destructive",
-        });
-      }
+      const res = await fetch("http://localhost:5000/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          username,
+          password
+        })
+      });
+
+      const data = await res.json();
+
+      toast({
+        title: "Success",
+        description: "Data saved to database 🚀",
+      });
+
     } catch (error) {
       toast({
-        title: "Login Error",
-        description: "Something went wrong. Please try again.",
+        title: "Error",
+        description: "Something went wrong",
         variant: "destructive",
       });
     } finally {
@@ -51,6 +49,7 @@ const Login = () => {
   return (
     <div className="min-h-screen bg-background flex items-center justify-center px-4">
       <div className="w-full max-w-md">
+        
         {/* Header */}
         <div className="text-center mb-8">
           <div className="flex justify-center mb-4">
@@ -71,11 +70,13 @@ const Login = () => {
           <CardHeader className="text-center">
             <CardTitle className="text-primary">User Login</CardTitle>
             <CardDescription>
-              Enter your credentials to access the system
+              Enter your credentials
             </CardDescription>
           </CardHeader>
+
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
+
               <div className="space-y-2">
                 <Label htmlFor="username">Username</Label>
                 <Input
@@ -85,9 +86,9 @@ const Login = () => {
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   required
-                  className="border-primary/30 focus:border-primary"
                 />
               </div>
+
               <div className="space-y-2">
                 <Label htmlFor="password">Password</Label>
                 <Input
@@ -97,34 +98,33 @@ const Login = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  className="border-primary/30 focus:border-primary"
                 />
               </div>
+
               <Button
                 type="submit"
-                className="w-full bg-primary hover:bg-primary-hover text-primary-foreground"
+                className="w-full"
                 disabled={isLoading}
               >
                 {isLoading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Logging in...
+                    Saving...
                   </>
                 ) : (
                   'Login'
                 )}
               </Button>
-            </form>
-            
 
+            </form>
           </CardContent>
         </Card>
 
         {/* Footer */}
         <div className="text-center mt-6 text-xs text-muted-foreground">
           <p>Secured by Government Authentication System</p>
-          <p className="mt-1">For technical support, contact IT helpdesk</p>
         </div>
+
       </div>
     </div>
   );
