@@ -4,6 +4,7 @@ const cors = require("cors");
 require("dotenv").config();
 
 const userRoutes = require("./routes/userRoutes");
+const teamRoutes = require("./routes/teamRoutes");
 
 const app = express();
 
@@ -17,5 +18,6 @@ mongoose.connect(process.env.MONGO_URI)
 
 // 🔥 Routes use karo
 app.use("/api", userRoutes);
+app.use("/api", teamRoutes);
 
 app.listen(5000, () => console.log("Server running on port 5000"));
