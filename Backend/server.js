@@ -16,8 +16,8 @@ mongoose.connect(process.env.MONGO_URI)
 .then(() => console.log("MongoDB Connected"))
 .catch(err => console.log(err));
 
-// 🔥 Routes use karo
-app.use("/api", userRoutes);
-app.use("/api", teamRoutes);
+// ✅ Clean routes
+app.use("/api/users", userRoutes);
+app.use("/api/teams", teamRoutes);
 
 app.listen(5000, () => console.log("Server running on port 5000"));

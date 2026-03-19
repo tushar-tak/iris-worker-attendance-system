@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
@@ -10,14 +11,16 @@ const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+
   const { toast } = useToast();
+  const navigate = useNavigate(); // 🔥 for redirect
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
     try {
-      const res = await fetch("http://localhost:5000/api/login", {
+      const res = await fetch("http://localhost:5000/api/users/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -30,15 +33,27 @@ const Login = () => {
 
       const data = await res.json();
 
-      toast({
-        title: "Success",
-        description: "Data saved to database 🚀",
-      });
+      if (data.success) {
+        toast({
+          title: "Login Successful ✅",
+          description: "Welcome Admin 🚀",
+        });
+
+        // 🔥 Redirect to home page
+        navigate("/");
+
+      } else {
+        toast({
+          title: "Login Failed ❌",
+          description: data.message || "Invalid credentials",
+          variant: "destructive",
+        });
+      }
 
     } catch (error) {
       toast({
-        title: "Error",
-        description: "Something went wrong",
+        title: "Error ❌",
+        description: "Server not responding",
         variant: "destructive",
       });
     } finally {
@@ -109,7 +124,7 @@ const Login = () => {
                 {isLoading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Saving...
+                    Logging in...
                   </>
                 ) : (
                   'Login'

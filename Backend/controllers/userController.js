@@ -1,15 +1,15 @@
-const User = require("../models/userModel");
-
-exports.createUser = async (req, res) => {
+exports.loginUser = async (req, res) => {
   try {
     const { username, password } = req.body;
 
-    const newUser = new User({ username, password });
-    await newUser.save();
+    
+    if (username === "Admin" && password === "123") {
+      return res.json({ success: true, message: "Login successful" });
+    }
 
-    res.json({ message: "User saved successfully" });
+    return res.status(401).json({ success: false, message: "Invalid credentials" });
 
   } catch (error) {
-    res.status(500).json({ error: "Error saving user" });
+    res.status(500).json({ error: "Login error" });
   }
 };
